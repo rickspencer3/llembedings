@@ -6,8 +6,9 @@ from langchain.vectorstores.faiss import FAISS
 from flask import Flask, render_template, request
 
 embeddings = GPT4AllEmbeddings()
-faiss_index = FAISS.load_local("/", embeddings)
+faiss_index = FAISS.load_local("/", embeddings, allow_dangerous_deserialization=True)
 app = Flask(__name__)
+llm = GPT4All(model="/models/mistral-7b-openorca.gguf2.Q4_0.gguf", max_tokens=20000)
 
 @app.route('/render', methods=['POST'])
 def invoke():
@@ -18,10 +19,9 @@ def invoke():
     for doc in matched_docs:
         context = context + doc.page_content + " \n\n " 
         sources.add(doc.metadata["source"])
-    llm = GPT4All(model="/models/mistral-7b-openorca.gguf2.Q4_0.gguf", max_tokens=2000)
 
     template = """
-    Use the following context to answer questions, but don't be limited by it.
+    Use the following context to respond to the question.
     Context: {context}
     - -
     Question: {question}

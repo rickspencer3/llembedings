@@ -24,5 +24,5 @@ WARNING: This is a development server. Do not use it in a production deployment.
  * Running on http://172.17.0.2:5001
 Press CTRL+C to quit
 ```
-In your web browser go to localhost:5001. Enter a query, and then wait for the answer. You can use the back button to enter another query. 
+In your web browser go to localhost:5001. Enter a query, and then wait for the answer. 
 
