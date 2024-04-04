@@ -14,7 +14,24 @@
     <H2>Answer</H2>
         <P>{{ answer }}</P>
     <H2>Sources</H2>
-    <P> {{ context }}</P>
+    <table>
+      <tr>
+        <th>Item</th>
+      </tr>
+      {% for item in context %}
+      <tr>
+        <td>{{ item }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    <H2>Time</H2>
+    <TABLE>
+      <TR><TD>Context Retrieval</TD><TD>{{ "%.2f" % timings[0] }}</TD></TR>
+      <TR><TD>Context Processing</TD><TD>{{ "%.2f" % timings[1] }}</TD></TR>
+      <TR><TD>Inference</TD><TD>{{ "%.2f" % timings[2] }}</TD></TR>
+    </TABLE>    
+
     <H2>Ask Another Question</H2>
     <form action="{{ url_for('invoke') }}" method="post">
         <input name="input" type="text" placeholder="Enter question" />
